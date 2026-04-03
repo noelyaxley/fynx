@@ -157,10 +157,10 @@ export function ContactContent() {
                       Email
                     </span>
                     <a
-                      href="mailto:hello@fynx.com.au"
+                      href="mailto:noel@fynx.com.au"
                       className="text-fynx-gold hover:text-fynx-gold-light transition-colors"
                     >
-                      hello@fynx.com.au
+                      noel@fynx.com.au
                     </a>
                   </div>
                   <div>

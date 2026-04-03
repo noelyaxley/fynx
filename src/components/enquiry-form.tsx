@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Turnstile } from "react-turnstile";
 import { Button } from "./button";
 
 type AudienceType = "homeowner" | "developer" | "broker" | "other";
@@ -18,6 +19,8 @@ const audiences: { value: AudienceType; label: string }[] = [
   { value: "other", label: "Other" },
 ];
 
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+
 export function EnquiryForm({
   defaultAudience,
   compact = false,
@@ -25,9 +28,16 @@ export function EnquiryForm({
 }: EnquiryFormProps) {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [audience, setAudience] = useState<AudienceType>(defaultAudience || "homeowner");
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    // If Turnstile is enabled but no token yet, block submission
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      return;
+    }
+
     setStatus("submitting");
 
     const form = e.currentTarget;
@@ -43,6 +53,7 @@ export function EnquiryForm({
       utm_source: new URLSearchParams(window.location.search).get("utm_source") || "",
       utm_medium: new URLSearchParams(window.location.search).get("utm_medium") || "",
       utm_campaign: new URLSearchParams(window.location.search).get("utm_campaign") || "",
+      turnstileToken: turnstileToken || "",
     };
 
     try {
@@ -65,6 +76,7 @@ export function EnquiryForm({
       }
     } catch {
       setStatus("error");
+      setTurnstileToken(null);
     }
   }
 
@@ -183,19 +195,30 @@ export function EnquiryForm({
         </div>
       )}
 
+      {/* Cloudflare Turnstile — only renders if site key is configured */}
+      {TURNSTILE_SITE_KEY && (
+        <Turnstile
+          sitekey={TURNSTILE_SITE_KEY}
+          onSuccess={(token) => setTurnstileToken(token)}
+          onExpire={() => setTurnstileToken(null)}
+          theme="dark"
+          className="flex justify-center"
+        />
+      )}
+
       <Button
         type="submit"
         variant="primary"
         size="lg"
         className="w-full"
-        disabled={status === "submitting"}
+        disabled={status === "submitting" || (!!TURNSTILE_SITE_KEY && !turnstileToken)}
       >
         {status === "submitting" ? "Submitting..." : "Talk to FYNX"}
       </Button>
 
       {status === "error" && (
         <p className="text-sm text-fynx-error text-center">
-          Something went wrong. Please try again or email hello@fynx.com.au
+          Something went wrong. Please try again or email noel@fynx.com.au
         </p>
       )}
 

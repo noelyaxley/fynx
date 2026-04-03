@@ -15,6 +15,27 @@ export async function POST(request: Request) {
 
     const data = await request.json();
 
+    // Turnstile verification (if configured)
+    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
+    if (turnstileSecret) {
+      const turnstileToken = data.turnstileToken;
+      if (!turnstileToken) {
+        return NextResponse.json({ error: "CAPTCHA verification required" }, { status: 400 });
+      }
+      const verifyRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          secret: turnstileSecret,
+          response: turnstileToken,
+        }),
+      });
+      const verifyData = await verifyRes.json();
+      if (!verifyData.success) {
+        return NextResponse.json({ error: "CAPTCHA verification failed" }, { status: 403 });
+      }
+    }
+
     const firstName = sanitize(data.firstName);
     const lastName = sanitize(data.lastName);
     const email = sanitize(data.email);
