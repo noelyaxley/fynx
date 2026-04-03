@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Prompt files
+fynx-master-prompt-for-claude-code.md
+fynx-nana-banana-assets-prompt-for-claude-code.md

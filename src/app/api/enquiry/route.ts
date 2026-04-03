@@ -1,10 +1,31 @@
 import { NextResponse } from "next/server";
 
+function sanitize(input: unknown): string {
+  if (typeof input !== "string") return "";
+  return input.replace(/<[^>]*>/g, "").trim().slice(0, 500);
+}
+
 export async function POST(request: Request) {
   try {
+    // Body size guard
+    const contentLength = request.headers.get("content-length");
+    if (contentLength && parseInt(contentLength) > 10000) {
+      return NextResponse.json({ error: "Request too large" }, { status: 413 });
+    }
+
     const data = await request.json();
 
-    const { firstName, lastName, email, phone, audience, message, source, page, utm_source, utm_medium, utm_campaign } = data;
+    const firstName = sanitize(data.firstName);
+    const lastName = sanitize(data.lastName);
+    const email = sanitize(data.email);
+    const phone = sanitize(data.phone);
+    const audience = sanitize(data.audience);
+    const message = sanitize(data.message);
+    const source = sanitize(data.source);
+    const page = sanitize(data.page);
+    const utm_source = sanitize(data.utm_source);
+    const utm_medium = sanitize(data.utm_medium);
+    const utm_campaign = sanitize(data.utm_campaign);
 
     // Basic validation
     if (!firstName || !lastName || !email) {
