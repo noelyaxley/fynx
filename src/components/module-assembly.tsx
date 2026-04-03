@@ -4,14 +4,18 @@ import { motion } from "framer-motion";
 
 /**
  * Animated SVG showing modular home assembly sequence.
- * Pure CSS/SVG — no image assets needed.
+ * Pure CSS/SVG — no image assets needed. No text elements.
  * Visual metaphor: modules moving from factory → transport → site → assembled home.
  */
 export function ModuleAssembly() {
+  const gold = "#FFB82C";
+  const orange = "#F5940C";
+  const muted = "#8A8A96";
+
   return (
     <div className="relative w-full max-w-lg mx-auto" aria-hidden="true">
       <svg
-        viewBox="0 0 480 320"
+        viewBox="0 0 480 300"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-auto"
@@ -23,19 +27,19 @@ export function ModuleAssembly() {
             x1={i * 20}
             y1={0}
             x2={i * 20}
-            y2={320}
-            stroke="rgba(212,168,83,0.06)"
+            y2={300}
+            stroke="rgba(255,184,44,0.04)"
             strokeWidth={0.5}
           />
         ))}
-        {Array.from({ length: 17 }).map((_, i) => (
+        {Array.from({ length: 16 }).map((_, i) => (
           <line
             key={`hg-${i}`}
             x1={0}
             y1={i * 20}
             x2={480}
             y2={i * 20}
-            stroke="rgba(212,168,83,0.06)"
+            stroke="rgba(255,184,44,0.04)"
             strokeWidth={0.5}
           />
         ))}
@@ -46,7 +50,7 @@ export function ModuleAssembly() {
           y1={260}
           x2={440}
           y2={260}
-          stroke="#D4A853"
+          stroke={gold}
           strokeWidth={1}
           strokeDasharray="4 4"
           initial={{ pathLength: 0 }}
@@ -61,7 +65,7 @@ export function ModuleAssembly() {
           width={240}
           height={8}
           fill="#2A2A32"
-          stroke="#D4A853"
+          stroke={gold}
           strokeWidth={0.5}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
@@ -81,42 +85,12 @@ export function ModuleAssembly() {
             width={112}
             height={80}
             fill="#18181C"
-            stroke="#D4A853"
+            stroke={gold}
             strokeWidth={1}
           />
-          {/* Window */}
-          <rect
-            x={148}
-            y={188}
-            width={28}
-            height={24}
-            fill="none"
-            stroke="#D4A853"
-            strokeWidth={0.5}
-            opacity={0.5}
-          />
-          <rect
-            x={192}
-            y={188}
-            width={28}
-            height={24}
-            fill="none"
-            stroke="#D4A853"
-            strokeWidth={0.5}
-            opacity={0.5}
-          />
-          {/* Module label */}
-          <text
-            x={180}
-            y={244}
-            textAnchor="middle"
-            fill="#D4A853"
-            fontSize={8}
-            fontFamily="monospace"
-            opacity={0.4}
-          >
-            MOD-A
-          </text>
+          {/* Windows */}
+          <rect x={148} y={188} width={28} height={24} fill="none" stroke={gold} strokeWidth={0.5} opacity={0.5} />
+          <rect x={192} y={188} width={28} height={24} fill="none" stroke={gold} strokeWidth={0.5} opacity={0.5} />
         </motion.g>
 
         {/* Module 2 — right section, drops in later */}
@@ -131,48 +105,19 @@ export function ModuleAssembly() {
             width={112}
             height={80}
             fill="#18181C"
-            stroke="#D4A853"
+            stroke={orange}
             strokeWidth={1}
           />
           {/* Door */}
-          <rect
-            x={278}
-            y={200}
-            width={22}
-            height={52}
-            fill="none"
-            stroke="#D4A853"
-            strokeWidth={0.5}
-            opacity={0.5}
-          />
+          <rect x={278} y={200} width={22} height={52} fill="none" stroke={orange} strokeWidth={0.5} opacity={0.5} />
           {/* Window */}
-          <rect
-            x={316}
-            y={188}
-            width={28}
-            height={24}
-            fill="none"
-            stroke="#D4A853"
-            strokeWidth={0.5}
-            opacity={0.5}
-          />
-          <text
-            x={300}
-            y={244}
-            textAnchor="middle"
-            fill="#D4A853"
-            fontSize={8}
-            fontFamily="monospace"
-            opacity={0.4}
-          >
-            MOD-B
-          </text>
+          <rect x={316} y={188} width={28} height={24} fill="none" stroke={orange} strokeWidth={0.5} opacity={0.5} />
         </motion.g>
 
         {/* Roof — draws after modules land */}
         <motion.path
           d="M 112 172 L 240 110 L 368 172"
-          stroke="#D4A853"
+          stroke={gold}
           strokeWidth={1.5}
           fill="none"
           initial={{ pathLength: 0 }}
@@ -191,94 +136,50 @@ export function ModuleAssembly() {
             y1={20}
             x2={300}
             y2={170}
-            stroke="#D4A853"
+            stroke={muted}
             strokeWidth={0.5}
             strokeDasharray="3 3"
             opacity={0.3}
           />
-          {/* Crane hook */}
           <path
             d="M 295 165 L 300 172 L 305 165"
-            stroke="#D4A853"
+            stroke={muted}
             strokeWidth={0.5}
             fill="none"
             opacity={0.3}
           />
         </motion.g>
 
-        {/* Annotation: Factory → Site */}
-        <motion.g
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 3.8 }}
-        >
-          <text
-            x={60}
-            y={290}
-            fill="#8A8A96"
-            fontSize={9}
-            fontFamily="monospace"
-          >
-            FACTORY
-          </text>
-          <line
-            x1={108}
-            y1={287}
-            x2={180}
-            y2={287}
-            stroke="#8A8A96"
-            strokeWidth={0.5}
-            markerEnd="url(#arrow)"
-          />
-          <text
-            x={190}
-            y={290}
-            fill="#D4A853"
-            fontSize={9}
-            fontFamily="monospace"
-          >
-            SITE
-          </text>
-          <line
-            x1={218}
-            y1={287}
-            x2={340}
-            y2={287}
-            stroke="#D4A853"
-            strokeWidth={0.5}
-          />
-          <text
-            x={350}
-            y={290}
-            fill="#D4A853"
-            fontSize={9}
-            fontFamily="monospace"
-          >
-            COMPLETE
-          </text>
-        </motion.g>
-
-        {/* Connection points flash */}
+        {/* Connection points flash — yellow to orange */}
         <motion.g
           initial={{ opacity: 0 }}
           animate={{ opacity: [0, 1, 0.4] }}
           transition={{ duration: 0.6, delay: 3.0, times: [0, 0.5, 1] }}
         >
-          <circle cx={236} cy={212} r={3} fill="#D4A853" />
-          <circle cx={244} cy={212} r={3} fill="#D4A853" />
+          <circle cx={236} cy={212} r={3} fill={gold} />
+          <circle cx={244} cy={212} r={3} fill={orange} />
         </motion.g>
 
+        {/* Progress bar at bottom — fills yellow → orange → red-orange */}
+        <motion.line
+          x1={120}
+          y1={280}
+          x2={360}
+          y2={280}
+          stroke="url(#progressGradient)"
+          strokeWidth={2}
+          strokeLinecap="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 3.5, delay: 0.5 }}
+        />
+
         <defs>
-          <marker
-            id="arrow"
-            markerWidth={6}
-            markerHeight={6}
-            refX={5}
-            refY={3}
-            orient="auto"
-          >
-            <path d="M 0 0 L 6 3 L 0 6" fill="none" stroke="#8A8A96" strokeWidth={0.5} />
-          </marker>
+          <linearGradient id="progressGradient" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor={gold} />
+            <stop offset="60%" stopColor={orange} />
+            <stop offset="100%" stopColor="#E8461E" />
+          </linearGradient>
         </defs>
       </svg>
     </div>

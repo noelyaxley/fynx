@@ -2,7 +2,9 @@
 
 /* ============================================
    FYNX Design System
-   Brand: Architectural Precision + Premium Finance
+   Brand: Bold Construction Finance
+   Palette derived from FYNX logo gradient:
+   Yellow #FFB82C → Orange #F5940C → Red-Orange #E8461E
    ============================================ */
 
 :root {
@@ -14,11 +16,15 @@
   --fynx-border: #2A2A32;
   --fynx-border-light: #3A3A44;
 
-  /* Accent: warm gold — capital, trust, premium */
-  --fynx-gold: #D4A853;
-  --fynx-gold-light: #E5C278;
-  --fynx-gold-dark: #B08A3A;
-  --fynx-gold-muted: rgba(212, 168, 83, 0.15);
+  /* Primary accent: FYNX Yellow — from logo */
+  --fynx-gold: #FFB82C;
+  --fynx-gold-light: #FFD06B;
+  --fynx-gold-dark: #E8941A;
+  --fynx-gold-muted: rgba(255, 184, 44, 0.15);
+
+  /* Logo gradient stops */
+  --fynx-orange: #F5940C;
+  --fynx-red: #E8461E;
 
   /* Text hierarchy */
   --fynx-text: #F5F5F0;
@@ -29,9 +35,9 @@
   --fynx-success: #34D399;
   --fynx-error: #EF4444;
 
-  /* Grid overlay */
-  --grid-color: rgba(212, 168, 83, 0.04);
-  --grid-line: rgba(212, 168, 83, 0.08);
+  /* Grid overlay — uses primary yellow */
+  --grid-color: rgba(255, 184, 44, 0.03);
+  --grid-line: rgba(255, 184, 44, 0.06);
 }
 
 @theme inline {
@@ -44,6 +50,8 @@
   --color-fynx-gold: var(--fynx-gold);
   --color-fynx-gold-light: var(--fynx-gold-light);
   --color-fynx-gold-dark: var(--fynx-gold-dark);
+  --color-fynx-orange: var(--fynx-orange);
+  --color-fynx-red: var(--fynx-red);
   --color-fynx-text: var(--fynx-text);
   --color-fynx-text-secondary: var(--fynx-text-secondary);
   --color-fynx-text-muted: var(--fynx-text-muted);
@@ -65,7 +73,7 @@ body {
 }
 
 ::selection {
-  background: rgba(212, 168, 83, 0.3);
+  background: rgba(255, 184, 44, 0.3);
   color: var(--fynx-text);
 }
 
@@ -84,9 +92,9 @@ body {
   background-size: 20px 20px;
 }
 
-/* Gold gradient text */
+/* Brand gradient text — follows logo gradient: yellow → orange → red-orange */
 .text-gradient-gold {
-  background: linear-gradient(135deg, var(--fynx-gold-light), var(--fynx-gold), var(--fynx-gold-dark));
+  background: linear-gradient(135deg, var(--fynx-gold-light), var(--fynx-gold), var(--fynx-orange));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -103,7 +111,7 @@ body {
   top: 0;
   width: 3px;
   height: 100%;
-  background: linear-gradient(180deg, var(--fynx-gold), transparent);
+  background: linear-gradient(180deg, var(--fynx-gold), var(--fynx-orange), transparent);
 }
 
 /* Module card hover effect */

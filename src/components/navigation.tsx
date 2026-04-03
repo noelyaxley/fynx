@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -19,10 +20,14 @@ export function Navigation() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-fynx-black/80 backdrop-blur-xl border-b border-fynx-border/50">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 border-2 border-fynx-gold flex items-center justify-center transition-colors group-hover:bg-fynx-gold/10">
-            <div className="w-2 h-2 bg-fynx-gold" />
-          </div>
+        <Link href="/" className="flex items-center gap-2.5">
+          <Image
+            src="/images/fynx-logo.png"
+            alt="FYNX"
+            width={28}
+            height={28}
+            className="w-7 h-7"
+          />
           <span className="font-display text-xl font-bold tracking-wider text-fynx-text">
             FYNX
           </span>
@@ -41,7 +46,7 @@ export function Navigation() {
           ))}
           <Link
             href="/contact"
-            className="text-sm font-semibold px-5 py-2.5 bg-fynx-gold text-fynx-black hover:bg-fynx-gold-light transition-colors"
+            className="text-sm font-semibold px-5 py-2.5 bg-fynx-gold text-fynx-black hover:bg-fynx-gold-light transition-colors rounded-sm"
           >
             Talk to FYNX
           </Link>
@@ -86,7 +91,7 @@ export function Navigation() {
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="mt-2 text-center font-semibold px-5 py-3 bg-fynx-gold text-fynx-black hover:bg-fynx-gold-light transition-colors"
+                className="mt-2 text-center font-semibold px-5 py-3 bg-fynx-gold text-fynx-black hover:bg-fynx-gold-light transition-colors rounded-sm"
               >
                 Talk to FYNX
               </Link>

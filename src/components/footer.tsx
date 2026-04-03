@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const footerLinks = {
@@ -20,10 +21,14 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-7 h-7 border-2 border-fynx-gold flex items-center justify-center">
-                <div className="w-1.5 h-1.5 bg-fynx-gold" />
-              </div>
+            <div className="flex items-center gap-2.5 mb-4">
+              <Image
+                src="/images/fynx-logo.png"
+                alt="FYNX"
+                width={24}
+                height={24}
+                className="w-6 h-6"
+              />
               <span className="font-display text-lg font-bold tracking-wider">
                 FYNX
               </span>
