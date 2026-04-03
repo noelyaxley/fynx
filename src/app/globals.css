@@ -1,26 +1,154 @@
 @import "tailwindcss";
 
+/* ============================================
+   FYNX Design System
+   Brand: Architectural Precision + Premium Finance
+   ============================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Core palette */
+  --fynx-black: #09090B;
+  --fynx-dark: #111114;
+  --fynx-surface: #18181C;
+  --fynx-surface-light: #222228;
+  --fynx-border: #2A2A32;
+  --fynx-border-light: #3A3A44;
+
+  /* Accent: warm gold — capital, trust, premium */
+  --fynx-gold: #D4A853;
+  --fynx-gold-light: #E5C278;
+  --fynx-gold-dark: #B08A3A;
+  --fynx-gold-muted: rgba(212, 168, 83, 0.15);
+
+  /* Text hierarchy */
+  --fynx-text: #F5F5F0;
+  --fynx-text-secondary: #A0A0AA;
+  --fynx-text-muted: #8A8A96;
+
+  /* Functional */
+  --fynx-success: #34D399;
+  --fynx-error: #EF4444;
+
+  /* Grid overlay */
+  --grid-color: rgba(212, 168, 83, 0.04);
+  --grid-line: rgba(212, 168, 83, 0.08);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-fynx-black: var(--fynx-black);
+  --color-fynx-dark: var(--fynx-dark);
+  --color-fynx-surface: var(--fynx-surface);
+  --color-fynx-surface-light: var(--fynx-surface-light);
+  --color-fynx-border: var(--fynx-border);
+  --color-fynx-border-light: var(--fynx-border-light);
+  --color-fynx-gold: var(--fynx-gold);
+  --color-fynx-gold-light: var(--fynx-gold-light);
+  --color-fynx-gold-dark: var(--fynx-gold-dark);
+  --color-fynx-text: var(--fynx-text);
+  --color-fynx-text-secondary: var(--fynx-text-secondary);
+  --color-fynx-text-muted: var(--fynx-text-muted);
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--fynx-black);
+  color: var(--fynx-text);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+::selection {
+  background: rgba(212, 168, 83, 0.3);
+  color: var(--fynx-text);
+}
+
+/* Blueprint grid background */
+.grid-bg {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.grid-bg-fine {
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Gold gradient text */
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--fynx-gold-light), var(--fynx-gold), var(--fynx-gold-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Architectural line accents */
+.line-accent {
+  position: relative;
+}
+.line-accent::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--fynx-gold), transparent);
+}
+
+/* Module card hover effect */
+.module-card {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s ease;
+}
+.module-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--fynx-gold);
+}
+
+/* Precision line drawing animation */
+@keyframes draw-line {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--fynx-black);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--fynx-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fynx-gold-dark);
 }
